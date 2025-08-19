@@ -1,3 +1,5 @@
+import { renderCheckoutItems } from "../scripts/checkout/orderSummary.js";
+
 export let cart = JSON.parse(localStorage.getItem("cart"));
 
 if (!cart) {
@@ -15,7 +17,7 @@ if (!cart) {
   ];
 }
 
-function saveToStorage() {
+export function saveToStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
@@ -63,4 +65,26 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   matchingItem.deliveryOptionId = deliveryOptionId;
 
   saveToStorage()
+}
+
+
+export function updateQuantity(productId) {
+  cart.forEach((cartItem) => {
+    if(productId === cartItem.productId){
+      cartItem.quantity += 1
+    }
+  })
+  saveToStorage()
+}
+
+
+export function updateCheckoutItems() {
+  let cartQuentity = 0;
+  cart.forEach((cartItem) => {
+    cartQuentity += cartItem.quantity;
+  });
+   localStorage.setItem("checkoutItems", cartQuentity)
+
+  renderCheckoutItems()
+   
 }
