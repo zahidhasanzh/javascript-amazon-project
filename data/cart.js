@@ -52,6 +52,7 @@ export function removeFromCart(productId) {
   cart = newCart;
 
   saveToStorage();
+  updateCheckoutItems()
 }
 
 export function updateDeliveryOption(productId, deliveryOptionId) {
@@ -86,5 +87,4 @@ export function updateCheckoutItems() {
    localStorage.setItem("checkoutItems", cartQuentity)
 
   renderCheckoutItems()
-   
 }
