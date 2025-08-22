@@ -19,8 +19,15 @@ export function renderOrderSummary() {
 
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
+    if (!productId) {
+      return;
+    }
 
     const matchingProduct = getProduct(productId);
+    if (!matchingProduct) {
+      console.error(`Product not found for ID: ${productId}`);
+      return;
+    }
 
     const deliveryOptionId = cartItem.deliveryOptionId;
 
@@ -153,7 +160,9 @@ export function renderCheckoutItems() {
 
   const checkoutItemsHTML = ` Checkout (<a class="return-to-home-link " href="amazon.html">${totalCheckoutItems} items</a>)`;
 
-  document.querySelector(".js-checkout-items-header").innerHTML =
-    checkoutItemsHTML;
+  const headerEl = document.querySelector(".js-checkout-items-header")
+  if(headerEl){
+    headerEl.innerHTML = checkoutItemsHTML
+  }
 }
 renderCheckoutItems()
